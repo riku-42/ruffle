@@ -14,8 +14,6 @@ function transformManifest(content, env) {
     const manifest = json5.parse(content.toString());
 
     let packageVersion = process.env["npm_package_version"];
-    let versionChannel = process.env["CFG_RELEASE_CHANNEL"] || "nightly";
-    let buildDate = new Date().toISOString().substring(0, 10);
     let buildId = process.env["BUILD_ID"];
     let firefoxExtensionId =
         process.env["FIREFOX_EXTENSION_ID"] || "ruffle@ruffle.rs";
@@ -27,9 +25,6 @@ function transformManifest(content, env) {
             );
 
             packageVersion = versionSeal.version_number;
-            versionChannel = versionSeal.version_channel;
-            buildDate = versionSeal.build_date.substring(0, 10);
-            buildId = versionSeal.build_id;
             firefoxExtensionId = versionSeal.firefox_extension_id;
         } else {
             throw new Error(
@@ -56,10 +51,8 @@ function transformManifest(content, env) {
             },
         };
     } else {
-        manifest.version_name =
-            versionChannel === "nightly"
-                ? `${packageVersion} nightly ${buildDate}`
-                : packageVersion;
+        manifest.version_name = "0.1.1";
+        manifest.version = "0.1.1";
     }
 
     return JSON.stringify(manifest);
