@@ -26,7 +26,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 forceAlign: true,
             }}
             allowSampleSwfs={true}
-            allowUrlLoading={false}
+            allowUrlLoading={true}
         />
     </React.StrictMode>,
 );
