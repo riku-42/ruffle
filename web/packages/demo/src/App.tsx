@@ -34,6 +34,14 @@ export function App({
 
     // useCallback because this will be called from useEffect, we need this function to not change
     const onSelectUrl = useCallback((url: string, options: BaseLoadOptions) => {
+        // Remove any trailing slash
+        let base_url = url.replace(/\/$/, "");
+        // Remove the part after last slash
+        let last_slash = base_url.lastIndexOf("/");
+        if (last_slash >= 0) {
+            base_url = base_url.substring(0, last_slash);
+        }
+        options.base = base_url;
         player.current?.loadUrl(url, options);
     }, []);
 
